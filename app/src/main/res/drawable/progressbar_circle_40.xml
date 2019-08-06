@@ -1,0 +1,34 @@
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <shape
+            android:shape="oval"
+            android:thicknessRatio="16"
+            android:useLevel="false">
+            <solid android:color="@android:color/black" />
+        </shape>
+    </item>
+    <item>
+        <shape
+            android:shape="ring"
+            android:thicknessRatio="7"
+            android:useLevel="false">
+            <solid android:color="@color/colorRatingDark40" />
+        </shape>
+    </item>
+    <item>
+    <rotate
+        android:fromDegrees="270"
+        android:toDegrees="270"
+        android:pivotX="50%"
+        android:pivotY="50%" >
+
+        <shape
+            android:id="@+id/shape_rating"
+            android:shape="ring"
+            android:thicknessRatio="7"
+            android:useLevel="true">
+            <solid android:color="@color/colorRating40" />
+        </shape>
+    </rotate>
+</item>
+</layer-list>
