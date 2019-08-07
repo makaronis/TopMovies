@@ -8,6 +8,6 @@ import java.util.List;
 public interface MainView extends MvpView {
     void showMovies(List<MovieResponse.Movie> movies);
     void showError(Exception e);
-    void setDate();
-    void setTime();
+    void showError(String e);
+    void showToast(String s,int duration);
 }

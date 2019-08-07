@@ -16,8 +16,11 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.makaroni.topmovies.R;
 import com.squareup.picasso.Picasso;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
+import java.util.Locale;
 
 public class MovieRecyclerAdapter extends RecyclerView.Adapter<MovieRecyclerAdapter.MovieViewHolder> {
 
@@ -79,7 +82,7 @@ public class MovieRecyclerAdapter extends RecyclerView.Adapter<MovieRecyclerAdap
         }
         private void bind (final MovieResponse.Movie movie){
             title.setText(movie.getTitle());
-            releaseDate.setText(movie.getReleaseDate());
+            setReleaseDate(movie.getReleaseDate());
             overview.setText(movie.getOverview());
             int rating = movie.getRating();
             setRatingColor(rating);
@@ -105,5 +108,16 @@ public class MovieRecyclerAdapter extends RecyclerView.Adapter<MovieRecyclerAdap
                 ratingBar.setProgressDrawable(ratingDrawable10);
 
         }
+        private void setReleaseDate(String date){
+            SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.ENGLISH);
+            try{
+                Date convertedDate = dateFormat.parse(date);
+                dateFormat.applyPattern("MMMM d, yyyy");
+                releaseDate.setText(dateFormat.format(convertedDate));
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+        }
+
     }
 }
