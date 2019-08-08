@@ -27,10 +27,7 @@ public class MainActivity extends MvpAppCompatActivity implements MainView, Movi
     public RecyclerView recyclerView;
     public MovieRecyclerAdapter recyclerAdapter;
     private Calendar calendar = Calendar.getInstance();
-    Button button ;
-    public int date ;
-    public int [] time = new int[2];
-
+    private Button button ;
 
     @InjectPresenter
     MainPresenter mainPresenter;
@@ -45,6 +42,13 @@ public class MainActivity extends MvpAppCompatActivity implements MainView, Movi
         recyclerView = findViewById(R.id.recyclerView);
         mainPresenter.loadMovies();
         button = findViewById(R.id.button_test);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mainPresenter.loadMovies();
+                button.setVisibility(View.INVISIBLE);
+            }
+        });
 
     }
 
@@ -58,14 +62,20 @@ public class MainActivity extends MvpAppCompatActivity implements MainView, Movi
     }
 
     @Override
-    public void showError(Exception e) {
+    public void showError(int code) {
+        switch (code){
+            case 1 :
+                String notificationError = "You can't set that date \n Please, set another date.";
+                Toast.makeText(this,notificationError,Toast.LENGTH_LONG).show();
+                break;
+            case 2 :
+                String requestError = "An error occurred with loading movies \n Please, check your internet connection";
+                Toast.makeText(this,requestError,Toast.LENGTH_LONG).show();
+                button.setVisibility(View.VISIBLE);
+                break;
 
-    }
+        }
 
-    @Override
-    public void showError(String e) {
-        String notificationError = "You can't set a past date \n Please, set another date.";
-        Toast.makeText(this,notificationError,Toast.LENGTH_LONG).show();
     }
 
     @Override
@@ -88,17 +98,17 @@ public class MainActivity extends MvpAppCompatActivity implements MainView, Movi
                 calendar.get(Calendar.MINUTE), true);
         //Time picker is showing after date is set
         DatePickerDialog.OnDateSetListener dateSetListener = new DatePickerDialog.OnDateSetListener() {
-                public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-                    calendar.set(Calendar.YEAR, year);
-                    calendar.set(Calendar.MONTH, monthOfYear);
-                    calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
-                    timePicker.show();
-                }
-            };
+            public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+                calendar.set(Calendar.YEAR, year);
+                calendar.set(Calendar.MONTH, monthOfYear);
+                calendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+                timePicker.show();
+            }
+        };
         new DatePickerDialog(MainActivity.this, dateSetListener,
-                    calendar.get(Calendar.YEAR),
-                    calendar.get(Calendar.MONTH),
-                    calendar.get(Calendar.DAY_OF_MONTH))
-                    .show();
+                calendar.get(Calendar.YEAR),
+                calendar.get(Calendar.MONTH),
+                calendar.get(Calendar.DAY_OF_MONTH))
+                .show();
     }
 }

@@ -28,19 +28,16 @@
         android:textColor="#110101"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/progressbar_rating"
+        app:layout_constraintStart_toEndOf="@+id/view_rating"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <ProgressBar
-        android:id="@+id/progressbar_rating"
-        style="?android:attr/progressBarStyleHorizontal"
+    <View
+        android:id="@+id/view_rating"
         android:layout_width="40dp"
         android:layout_height="40dp"
         android:layout_marginStart="4dp"
         android:layout_marginTop="8dp"
-        android:max="100"
-        android:progress="68"
-        android:progressDrawable="@drawable/progressbar_circle_40"
+        android:progressDrawable="@drawable/rating_circle_40"
         app:layout_constraintStart_toEndOf="@+id/image_poster"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -50,7 +47,7 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
         android:text="2019-01-31"
-        app:layout_constraintStart_toEndOf="@+id/progressbar_rating"
+        app:layout_constraintStart_toEndOf="@+id/view_rating"
         app:layout_constraintTop_toBottomOf="@+id/text_title" />
 
     <TextView
@@ -78,10 +75,10 @@
         android:text="84"
         android:textColor="#FFFFFF"
         android:textSize="15sp"
-        app:layout_constraintBottom_toBottomOf="@+id/progressbar_rating"
-        app:layout_constraintEnd_toEndOf="@+id/progressbar_rating"
-        app:layout_constraintStart_toStartOf="@+id/progressbar_rating"
-        app:layout_constraintTop_toTopOf="@+id/progressbar_rating" />
+        app:layout_constraintBottom_toBottomOf="@+id/view_rating"
+        app:layout_constraintEnd_toEndOf="@+id/view_rating"
+        app:layout_constraintStart_toStartOf="@+id/view_rating"
+        app:layout_constraintTop_toTopOf="@+id/view_rating" />
 
     <Button
         android:id="@+id/button"

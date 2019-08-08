@@ -29,6 +29,7 @@ dependencies {
     implementation 'tech.schoolhelper:moxy-x-androidx:1.7.0'
     implementation 'tech.schoolhelper:moxy-x:1.7.0'
     implementation 'tech.schoolhelper:moxy-x-material:1.7.0'
+    testImplementation 'org.mockito:mockito-core:3.0.0'
     annotationProcessor 'tech.schoolhelper:moxy-x-compiler:1.7.0'
     implementation 'com.google.android.material:material:1.1.0-alpha09'
     testImplementation 'junit:junit:4.12'

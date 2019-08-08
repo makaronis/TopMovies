@@ -7,7 +7,6 @@ import java.util.List;
 
 public interface MainView extends MvpView {
     void showMovies(List<MovieResponse.Movie> movies);
-    void showError(Exception e);
-    void showError(String e);
+    void showError(int e);
     void showToast(String s,int duration);
 }

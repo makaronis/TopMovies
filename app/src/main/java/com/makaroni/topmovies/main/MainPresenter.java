@@ -1,22 +1,18 @@
 package com.makaroni.topmovies.main;
 
 import android.app.AlarmManager;
-import android.app.Notification;
+import android.app.DatePickerDialog;
 import android.app.PendingIntent;
-import android.content.ComponentName;
+import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.Intent;
-import android.content.pm.PackageManager;
+import android.widget.DatePicker;
+import android.widget.TimePicker;
 import android.widget.Toast;
-
-import androidx.core.app.NotificationCompat;
-
 import com.arellomobile.mvp.InjectViewState;
 import com.arellomobile.mvp.MvpPresenter;
-import com.makaroni.topmovies.R;
 import com.makaroni.topmovies.data.MovieDbApi;
 import com.makaroni.topmovies.data.MovieResponse;
-import com.makaroni.topmovies.notification.NotificationHelper;
 import com.makaroni.topmovies.notification.NotificationReceiver;
 
 import java.util.Calendar;
@@ -34,7 +30,6 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class MainPresenter extends MvpPresenter<MainView>  {
     private Retrofit retrofit;
     private MovieDbApi api;
-    private Calendar calendar = Calendar.getInstance();
     private Context context;
     private AlarmManager alarmManager;
 
@@ -50,24 +45,24 @@ public class MainPresenter extends MvpPresenter<MainView>  {
         Call<MovieResponse> call = api.loadMovies(getRequestMap());
         try {
             call.enqueue(new Callback<MovieResponse>() {
+
                 @Override
                 public void onResponse(Call<MovieResponse> call, Response<MovieResponse> response) {
                     List<MovieResponse.Movie> movies = response.body().getResults();
-                    int resultsCount = response.body().getResultsCount();
                     getViewState().showMovies(movies);
                 }
-
                 @Override
                 public void onFailure(Call<MovieResponse> call, Throwable t) {
-
+                    getViewState().showError(2);
                 }
+
             });
         } catch (Exception e){
             e.printStackTrace();
         }
 
     }
-    public Map<String,String> getRequestMap() {
+    private Map<String,String> getRequestMap() {
         Map<String,String> map = new LinkedHashMap<>();
         map.put("api_key","51acab29f02b8fbb4ec0cd81b15ce9aa");
         map.put("language","en-US");
@@ -79,7 +74,6 @@ public class MainPresenter extends MvpPresenter<MainView>  {
         return map;
     }
 
-
     public void scheduleViewing(String movie, Calendar calendar) {
             Intent intent = new Intent(context, NotificationReceiver.class);
             intent.putExtra(NotificationReceiver.movieTitle,movie);
@@ -87,11 +81,11 @@ public class MainPresenter extends MvpPresenter<MainView>  {
             PendingIntent pendingIntent = PendingIntent.getBroadcast(context, iUniqueId, intent, 0);
             // If user set past data, a toast will show
             if (calendar.before(Calendar.getInstance())) {
-                getViewState().showError("1");
+                getViewState().showError(1);
                 return;
             }
             alarmManager.setExact(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
-            getViewState().showToast("Notification was created", Toast.LENGTH_SHORT);
+            getViewState().showToast("Notification created", Toast.LENGTH_SHORT);
 
     }
 }

@@ -37,9 +37,6 @@ public class MovieResponse {
         @SerializedName("poster_path")
         @Expose
         public String posterPath;
-        @SerializedName("backdrop_path")
-        @Expose
-        public String backdropPath;
         @SerializedName("overview")
         @Expose
         public String overview;
@@ -58,10 +55,6 @@ public class MovieResponse {
 
         public String getPosterPath() {
             return posterPath;
-        }
-
-        public String getBackdropPath() {
-            return backdropPath;
         }
 
         public String getOverview() {

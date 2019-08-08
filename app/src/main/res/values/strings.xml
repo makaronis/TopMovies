@@ -2,4 +2,5 @@
     <string name="app_name">Top Movies</string>
     <string name="toast_notify">Notification was created</string>
     <string name="button_schedule">Schedule viewing</string>
+    <string name="button_load">Load Movies</string>
 </resources>
