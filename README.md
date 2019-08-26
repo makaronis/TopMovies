@@ -1,2 +1,2 @@
 # TopMovies
-T-Systems test task.
+Test task.
